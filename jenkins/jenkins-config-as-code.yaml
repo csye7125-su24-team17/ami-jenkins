@@ -24,3 +24,7 @@ jenkins:
       permissions:
         - "Overall/Administer:authenticated"  # Grants all authenticated users full administrative access to Jenkins.
         - "Overall/Read:anonymous"  # Allows anonymous users to view pages in Jenkins, useful for public-facing Jenkins instances.
+
+jobs:
+  - script: >
+      new File('/var/lib/jenkins/build-and-push-static-site.groovy').text
