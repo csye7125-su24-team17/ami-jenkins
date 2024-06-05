@@ -122,6 +122,11 @@ build {
     destination = "/home/ubuntu/jenkins.yaml"
   }
 
+  provisioner "file" {
+    source      = "./jenkins/build-and-push-static-site.groovy"
+    destination = "/home/ubuntu/build-and-push-static-site.groovy"
+  }
+
   provisioner "shell" {
     name = "Installs Jenkins and all its dependencies, starts the service"
     scripts = [
