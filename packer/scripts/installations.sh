@@ -80,11 +80,17 @@ wget --quiet \
 sudo java -jar ./jenkins-plugin-manager-2.12.13.jar --war /usr/share/java/jenkins.war \
   --plugin-download-directory /var/lib/jenkins/plugins --plugin-file /home/ubuntu/plugins-list.txt
 
-# Move Jenkins config file to Jenkins home
+# Copy Jenkins config file to Jenkins home
 sudo cp /home/ubuntu/jenkins.yaml /var/lib/jenkins/
 
 # Make jenkins user and group owner of jenkins.yaml file
 sudo chown jenkins:jenkins /var/lib/jenkins/jenkins.yaml
+
+# Copy Jenkins DSL Job scripts to Jenkins home
+sudo cp /home/ubuntu/build-and-push-static-site.groovy /var/lib/jenkins/
+
+# Make jenkins user and group owner of Jenkins DSL job
+sudo chown jenkins:jenkins /var/lib/jenkins/build-and-push-static-site.groovy
 
 # Update users and group permissions to `jenkins` for all installed plugins:
 cd /var/lib/jenkins/plugins/ || exit
