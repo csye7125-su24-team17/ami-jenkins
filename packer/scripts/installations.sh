@@ -62,6 +62,9 @@ sudo rm /etc/caddy/Caddyfile
 sudo tee /etc/caddy/Caddyfile <<EOF
 jenkinsdemo.hemanthnvd.com {
   reverse_proxy http://127.0.0.1:8080
+  tls internal {
+      ca https://acme-staging-v02.api.letsencrypt.org/directory
+  }
 }
 EOF
 
