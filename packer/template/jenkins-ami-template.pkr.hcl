@@ -33,11 +33,13 @@ variable "ssh_username" {
 variable "subnet_id" {
   type        = string
   description = "Subnet of the default VPC"
+  default     = "subnet-01a3f492506dff6a5"
 }
 
 variable "ami_users" {
   type        = list(string)
   description = "List of account IDs that will have access the custom AMI"
+  default     = ["533267083766"]
 }
 
 variable "OS" {

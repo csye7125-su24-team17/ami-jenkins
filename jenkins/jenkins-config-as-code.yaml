@@ -19,30 +19,34 @@ jenkins:
           password: "ADMIN_PASSWORD"  # Placeholder to be replaced with GitHub secrets via GitHub Actions workflow
 
   # Defines the authorization strategy and specifies permissions for various security roles.
-  authorizationStrategy:
-    globalMatrix:
-      permissions:
-        - "Overall/Administer:authenticated"  # Grants all authenticated users full administrative access to Jenkins.
-        - "Overall/Read:anonymous"  # Allows anonymous users to view pages in Jenkins, useful for public-facing Jenkins instances.
+#  authorizationStrategy:
+#    globalMatrix:
+#      permissions:
+#        - "Overall/Administer:authenticated"
+        # Grants all authenticated users full administrative access to Jenkins.
+#        - "Overall/Read:anonymous"
+        # Allows anonymous users to view pages in Jenkins, useful for public-facing Jenkins instances.
 
-#credentials:
-#  system:
-#    domainCredentials:
-#      - credentials:
-#          - usernamePassword:
-#              scope: GLOBAL
-#              id: "github-pat"
-#              username: "csye7125-su24-team17"
-#              password: "${G_PAT}"
-#              description: "GitHub Personal Access Token"
-#          - string:
-#              scope: GLOBAL
-#              id: "docker-token"
-#              secret: "${DOCKER_TOKEN}"
-#              description: "Docker Registry Token"
-#jobs:
-#  - file: /var/lib/jenkins/build-and-push-static-site.groovy
-#
-#unclassified:
-#  permissiveScriptSecurity:
-#    enabled: true  # This effectively disables script security checks
+credentials:
+  system:
+    domainCredentials:
+      - credentials:
+          - usernamepassword:
+              scope: GLOBAL
+              id: "github-pat"
+              username: "G_USERNAME" #Placeholder
+              password: "G_PAT" # Placeholder
+              description: "GitHub Personal Access Token"
+          - usernamepassword:
+              scope: GLOBAL
+              id: "docker-token"
+              username: "DOCKER_USERNAME" # Placeholder
+              password: "DOCKER_TOKEN" # Placeholder
+              description: "Docker Registry Token"
+
+jobs:
+  - file: /var/lib/jenkins/build-and-push-static-site.groovy
+
+    #unclassified:
+    #permissiveScriptSecurity:
+    #enabled: true  # This effectively disables script security checks
