@@ -25,6 +25,8 @@ jobs:
         run: |
           sed -i 's/ADMIN_USER/${{ secrets.JENKINS_ADMIN_USER }}/g' jenkins/jenkins-config-as-code.yaml
           sed -i 's/ADMIN_PASSWORD/${{ secrets.JENKINS_ADMIN_PASSWORD }}/g' jenkins/jenkins-config-as-code.yaml
+          sed -i 's/${G_PAT}/${{ secrets.G_PAT }}/g' jenkins/jenkins-config-as-code.yaml
+          sed -i 's/${DOCKER_TOKEN}/${{ secrets.DOCKER_TOKEN }}/g' jenkins/jenkins-config-as-code.yaml
         shell: bash
 
       - name: Replace placeholders in Jenkins DSL script
