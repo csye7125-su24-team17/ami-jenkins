@@ -3,7 +3,7 @@ name: Build Jenkins AMI using Packer
 
 on:
   push:
-    branches: [A02]
+    branches: [main]
 
 jobs:
   packer_build_image:

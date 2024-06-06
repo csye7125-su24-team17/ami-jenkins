@@ -1,4 +1,8 @@
 pipelineJob('build-and-push-static-site') {
+    triggers {
+        // Trigger the job on each push to the GitHub repository
+        githubPush()
+    }
     definition {
         cps {
             script("""

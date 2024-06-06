@@ -6,8 +6,8 @@ jenkins:
   systemMessage: "Automating Jenkins Setup using Jenkins Configuration as Code"
 
   # Configuration for Jenkins remoting security. When enabled, it helps secure Jenkins' agent-to-master operations.
-  remotingSecurity:
-    enabled: true  # Ensures that remoting security is enforced, which is crucial for avoiding unauthorized command execution.
+#  remotingSecurity:
+#    enabled: true  # Ensures that remoting security is enforced, which is crucial for avoiding unauthorized command execution.
 
   # Configuration for the security realm. This section defines how Jenkins handles authentication.
   securityRealm:
