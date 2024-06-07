@@ -5,6 +5,7 @@ pipelineJob('build-and-push-static-site') {
     }
     definition {
         cps {
+            sandbox : true
             script("""
         pipeline {
           agent any
