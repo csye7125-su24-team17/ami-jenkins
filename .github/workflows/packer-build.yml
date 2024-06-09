@@ -59,6 +59,6 @@ jobs:
         id: build
         run: "packer build \
           -var 'ami_users=${{ secrets.AMI_USERS }}' \
-          -var 'instance_type={{ vars.INSTANCE_TYPE }}' \
+          -var 'instance_type=${{ vars.INSTANCE_TYPE }}' \
           -var 'volume_size=${{ vars.VOLUME_SIZE }}' \
           -var 'subnet_id=${{ secrets.SUBNET_ID }}' packer/template/jenkins-ami-template.pkr.hcl"
