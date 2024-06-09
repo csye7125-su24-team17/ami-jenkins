@@ -1,12 +1,14 @@
-# This workflow will be triggered to build the custom Jenkins AMI using Packer
 name: Build Jenkins AMI using Packer
 
 on:
-  push:
-    branches: [main]
+  pull_request:
+    branches:
+      - main
+    types: [closed]
 
 jobs:
   packer_build_image:
+    if: ${{ github.event.pull_request.merged }}
     runs-on: ubuntu-latest
 #    environment: ${{ vars.ENVIRONMENT }}
     name: Build AWS Custom AMI for Jenkins with Caddy
@@ -44,21 +46,6 @@ jobs:
 #          sed -i 's/${DOCKER_CREDENTIALS_ID}/${{ secrets.DOCKER_CREDENTIALS_ID }}/g' jenkins/build-and-push-static-site.groovy
 #        shell: bash
 
-      - name: Create & configure Packer variables
-        run: |
-          touch jenkins-ami.pkrvars.hcl
-          echo ami_prefix=\"${{ vars.AMI_PREFIX }}\" >> jenkins-ami.pkrvars.hcl
-          echo OS=\"${{ vars.OS }}\" >> jenkins-ami.pkrvars.hcl
-          echo ubuntu_version=\"${{ vars.UBUNTU_VERSION }}\" >> jenkins-ami.pkrvars.hcl
-          echo ssh_username=\"${{ vars.SSH_USERNAME }}\" >> jenkins-ami.pkrvars.hcl
-          echo subnet_id=\"${{ secrets.SUBNET_ID }}\" >> jenkins-ami.pkrvars.hcl
-          echo source_ami=\"${{ vars.SOURCE_AMI }}\" >> jenkins-ami.pkrvars.hcl
-          echo aws_region=\"${{ vars.AWS_REGION }}\" >> jenkins-ami.pkrvars.hcl
-          echo instance_type=\"${{ vars.INSTANCE_TYPE}}\" >> jenkins-ami.pkrvars.hcl
-          echo volume_size=\"${{ vars.VOLUME_SIZE}}\" >> jenkins-ami.pkrvars.hcl
-          echo volume_type=\"${{ vars.VOLUME_TYPE}}\" >> jenkins-ami.pkrvars.hcl
-          echo device_name=\"${{ vars.DEVICE_NAME}}\" >> jenkins-ami.pkrvars.hcl
-
       - name: Setup `packer`
         uses: hashicorp/setup-packer@main
         id: setup
@@ -69,18 +56,10 @@ jobs:
         id: init
         run: "packer init packer/template/jenkins-ami-template.pkr.hcl"
 
-      - name: Packer format
-        id: fmt
-        run: "packer fmt packer/template/jenkins-ami-template.pkr.hcl"
-
-      - name: Validate packer template
-        id: validate
-        run: "packer validate \
-          -var 'ami_users=${{ secrets.AMI_USERS }}' \
-          --var-file=jenkins-ami.pkrvars.hcl packer/template/jenkins-ami-template.pkr.hcl"
-
       - name: Build AMI using Packer
         id: build
-        run: "packer build \
-          -var 'ami_users=${{ secrets.AMI_USERS }}' \
-          --var-file=jenkins-ami.pkrvars.hcl packer/template/jenkins-ami-template.pkr.hcl"
+        run: packer build \
+          -var "ami_users=${{ secrets.AMI_USERS }}" \
+          -var "instance_type={{ vars.INSTANCE_TYPE }}" \
+          -var "volume_size=${{ vars.VOLUME_SIZE }}" \
+          -var "subnet_id=${{ secrets.SUBNET_ID }}" packer/template/jenkins-ami-template.pkr.hcl

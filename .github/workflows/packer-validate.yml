@@ -1,6 +1,3 @@
-# This workflow will be triggered on all Pull Requests from fork-repo/feature-branch to organization-repo/main-branch.
-# Validates the Packer AMI templates
-
 name: Packer AMI template validation
 
 on:
@@ -14,21 +11,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
-      - name: Create & configure Packer variables
-        run: |
-          touch jenkins-ami.pkrvars.hcl
-          echo ami_prefix=\"${{ vars.AMI_PREFIX }}\" >> jenkins-ami.pkrvars.hcl
-          echo OS=\"${{ vars.OS }}\" >> jenkins-ami.pkrvars.hcl
-          echo ubuntu_version=\"${{ vars.UBUNTU_VERSION }}\" >> jenkins-ami.pkrvars.hcl
-          echo ssh_username=\"${{ vars.SSH_USERNAME }}\" >> jenkins-ami.pkrvars.hcl
-          echo subnet_id=\"${{ secrets.SUBNET_ID }}\" >> jenkins-ami.pkrvars.hcl
-          echo source_ami=\"${{ vars.SOURCE_AMI }}\" >> jenkins-ami.pkrvars.hcl
-          echo aws_region=\"${{ vars.AWS_REGION }}\" >> jenkins-ami.pkrvars.hcl
-          echo instance_type=\"${{ vars.INSTANCE_TYPE}}\" >> jenkins-ami.pkrvars.hcl
-          echo volume_size=\"${{ vars.VOLUME_SIZE}}\" >> jenkins-ami.pkrvars.hcl
-          echo volume_type=\"${{ vars.VOLUME_TYPE}}\" >> jenkins-ami.pkrvars.hcl
-          echo device_name=\"${{ vars.DEVICE_NAME}}\" >> jenkins-ami.pkrvars.hcl
 
       - name: Setup `packer`
         uses: hashicorp/setup-packer@main
@@ -48,5 +30,5 @@ jobs:
 
       - name: Validate Packer template
         id: validate
-        run: 
-          packer validate -var 'ami_users=${{ secrets.AMI_USERS }}' --var-file=jenkins-ami.pkrvars.hcl packer/template/jenkins-ami-template.pkr.hcl
+        run: packer validate \
+          -var "ami_users=${{ secrets.AMI_USERS }}" packer/template/jenkins-ami-template.pkr.hcl

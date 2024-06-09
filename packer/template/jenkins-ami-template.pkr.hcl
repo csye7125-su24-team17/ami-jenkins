@@ -39,7 +39,6 @@ variable "subnet_id" {
 variable "ami_users" {
   type        = list(string)
   description = "List of account IDs that will have access the custom AMI"
-  default     = ["533267083766"]
 }
 
 variable "OS" {
@@ -69,7 +68,7 @@ variable "volume_type" {
 variable "volume_size" {
   type        = string
   description = "EBS volume size"
-  default     = "8"
+  default     = "50"
 }
 
 variable "device_name" {
