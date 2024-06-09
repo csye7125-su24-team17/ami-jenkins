@@ -128,6 +128,11 @@ build {
     destination = "/home/ubuntu/build-and-push-static-site.groovy"
   }
 
+  provisioner "file" {
+    source      = "./jenkins/conventional-commit.groovy"
+    destination = "/home/ubuntu/conventional-commit.groovy"
+  }
+
   provisioner "shell" {
     name = "Installs Jenkins and all its dependencies, starts the service"
     scripts = [

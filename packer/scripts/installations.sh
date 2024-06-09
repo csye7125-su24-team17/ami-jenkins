@@ -83,8 +83,8 @@ sudo chmod a+r /etc/apt/keyrings/docker.gpg
 
 # Add the repository to Apt sources:
 echo \
-  "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-  "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" |
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" |
   sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
 
 # Install Docker:
@@ -117,8 +117,14 @@ sudo chown jenkins:jenkins /var/lib/jenkins/jenkins.yaml
 # Copy Jenkins DSL Job scripts to Jenkins home
 sudo cp /home/ubuntu/build-and-push-static-site.groovy /var/lib/jenkins/
 
+# Copy conventional commit DSL Job scripts to Jenkins home
+sudo cp /home/ubuntu/conventional-commit.groovy /var/lib/jenkins/
+
 # Make jenkins user and group owner of Jenkins DSL job
 sudo chown jenkins:jenkins /var/lib/jenkins/build-and-push-static-site.groovy
+
+# Make jenkins user and group owner of conventional commit DSL job
+sudo chown jenkins:jenkins /var/lib/jenkins/conventional-commit.groovy
 
 # Update users and group permissions to `jenkins` for all installed plugins:
 cd /var/lib/jenkins/plugins/ || exit

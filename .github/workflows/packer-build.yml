@@ -10,7 +10,6 @@ jobs:
   packer_build_image:
     if: ${{ github.event.pull_request.merged }}
     runs-on: ubuntu-latest
-#    environment: ${{ vars.ENVIRONMENT }}
     name: Build AWS Custom AMI for Jenkins with Caddy
     steps:
       - name: Checkout code
