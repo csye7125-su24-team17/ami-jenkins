@@ -15,4 +15,4 @@
 - `packer validate`: Validates the template
 - `packer build <filename>.pkr.hcl`: Builds the custom AMI  
 
---test for conventional commit status check
+--test for conventional commit status checks
