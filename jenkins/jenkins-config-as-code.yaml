@@ -4,6 +4,7 @@
 jenkins:
   # The system message to be displayed on the Jenkins dashboard. This is useful for providing status or environment-specific information to users.
   systemMessage: "Automating Jenkins Setup using Jenkins Configuration as Code"
+  numExecutors: 2
 
   # Configuration for Jenkins remoting security. When enabled, it helps secure Jenkins' agent-to-master operations.
 #  remotingSecurity:
@@ -39,14 +40,13 @@ credentials:
               description: "GitHub Personal Access Token"
           - usernamepassword:
               scope: GLOBAL
-              id: "docker-token"
+              id: "docker-cred"
               username: "DOCKER_USERNAME" # Placeholder
-              password: "DOCKER_TOKEN" # Placeholder
+              password: "DOCKER_PASSWORD" # Placeholder
               description: "Docker Registry Token"
 
 jobs:
   - file: /var/lib/jenkins/build-and-push-static-site.groovy
-  - file: /var/lib/jenkins/conventional-commit.groovy
 
     #unclassified:
     #permissiveScriptSecurity:

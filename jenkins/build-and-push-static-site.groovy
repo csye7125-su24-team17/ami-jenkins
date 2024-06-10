@@ -1,6 +1,5 @@
 pipelineJob('build-and-push-static-site') {
     triggers {
-        // Trigger the job on each push to the GitHub repository
         githubPush()
     }
     definition {
@@ -8,6 +7,9 @@ pipelineJob('build-and-push-static-site') {
             script("""
         pipeline {
           agent any
+          environment{
+            DOCKER_CREDENTIALS = credentials('docker-credentials')
+          }
           stages {
             stage('Setup buildx for multi-architecture docker images') {
               steps {
@@ -20,17 +22,23 @@ pipelineJob('build-and-push-static-site') {
             stage('Checkout Code') {
               steps {
                 // HTTPs URL for GitHub repo
-                git(url: 'https://github.com/G_USERNAME/static-site.git', 
+                git(url: 'https://github.com/csye7125-su24-team17/static-site.git', 
     branch: 'main',
     credentialsId: 'github-pat')
               }
             }
             stage('Build and push Docker Image using buildx') {
               steps {
-                sh 'echo DOCKER_PASSWORD  | docker login -u DOCKER_USERNAME --password-stdin'
-                sh 'docker buildx create --use'
-                sh 'docker buildx build --platform linux/amd64,linux/arm64 -t DOCKER_USERNAME/DOCKERHUB_REPO:BUILD_NO --push .'
-				sh 'docker logout'
+                script{
+                  withCredentials([usernamePassword(credentialsId: 'docker-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                    sh """
+                      docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
+                      docker buildx create --use
+                      docker buildx build --platform linux/amd64,linux/arm64 -t ${DOCKER_USERNAME}/static-site:latest --push .
+                    sh 'docker logout'
+                    """
+                  }
+                }
               }
             }
           }

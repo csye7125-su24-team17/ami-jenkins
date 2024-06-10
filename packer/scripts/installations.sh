@@ -117,14 +117,8 @@ sudo chown jenkins:jenkins /var/lib/jenkins/jenkins.yaml
 # Copy Jenkins DSL Job scripts to Jenkins home
 sudo cp /home/ubuntu/build-and-push-static-site.groovy /var/lib/jenkins/
 
-# Copy conventional commit DSL Job scripts to Jenkins home
-sudo cp /home/ubuntu/conventional-commit.groovy /var/lib/jenkins/
-
 # Make jenkins user and group owner of Jenkins DSL job
 sudo chown jenkins:jenkins /var/lib/jenkins/build-and-push-static-site.groovy
-
-# Make jenkins user and group owner of conventional commit DSL job
-sudo chown jenkins:jenkins /var/lib/jenkins/conventional-commit.groovy
 
 # Update users and group permissions to `jenkins` for all installed plugins:
 cd /var/lib/jenkins/plugins/ || exit

@@ -28,22 +28,9 @@ jobs:
           sed -i 's/ADMIN_PASSWORD/${{ secrets.JENKINS_ADMIN_PASSWORD }}/g' jenkins/jenkins-config-as-code.yaml
           sed -i 's/G_PAT/${{ secrets.G_PAT }}/g' jenkins/jenkins-config-as-code.yaml
           sed -i 's/G_USERNAME/${{ secrets.G_USERNAME }}/g' jenkins/jenkins-config-as-code.yaml
-          sed -i 's/DOCKER_TOKEN/${{ secrets.DOCKER_TOKEN }}/g' jenkins/jenkins-config-as-code.yaml
           sed -i 's/DOCKER_USERNAME/${{ secrets.DOCKER_USERNAME }}/g' jenkins/jenkins-config-as-code.yaml
-          sed -i 's/G_USERNAME/${{ secrets.G_USERNAME }}/g' jenkins/build-and-push-static-site.groovy
-          sed -i 's/DOCKER_USERNAME/${{ secrets.DOCKER_USERNAME }}/g' jenkins/build-and-push-static-site.groovy
-          sed -i 's/DOCKER_PASSWORD/${{ secrets.DOCKER_PASSWORD }}/g' jenkins/build-and-push-static-site.groovy
-          sed -i 's/BUILD_NO/${{ github.run_number }}/g' jenkins/build-and-push-static-site.groovy
-          sed -i 's/DOCKERHUB_REPO/${{ secrets.DOCKERHUB_REPO }}/g' jenkins/build-and-push-static-site.groovy
+          sed -i 's/DOCKER_PASSWORD/${{ secrets.DOCKER_PASSWORD }}/g' jenkins/jenkins-config-as-code.yaml
         shell: bash
-
-#      - name: Replace placeholders in Jenkins DSL script
-#        run: |
-#          sed -i 's/${G_USERNAME}/${{ secrets.G_USERNAME }}/g' jenkins/build-and-push-static-site.groovy
-#          sed -i 's/${G_CREDENTIALS_ID}/${{ secrets.G_CREDENTIALS_ID }}/g' jenkins/build-and-push-static-site.groovy
-#          sed -i 's/${DOCKER_USERNAME}/${{ secrets.DOCKER_USERNAME }}/g' jenkins/build-and-push-static-site.groovy
-#          sed -i 's/${DOCKER_CREDENTIALS_ID}/${{ secrets.DOCKER_CREDENTIALS_ID }}/g' jenkins/build-and-push-static-site.groovy
-#        shell: bash
 
       - name: Setup `packer`
         uses: hashicorp/setup-packer@main
