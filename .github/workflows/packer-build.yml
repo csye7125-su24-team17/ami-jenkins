@@ -30,6 +30,10 @@ jobs:
           sed -i 's/G_USERNAME/${{ secrets.G_USERNAME }}/g' jenkins/jenkins-config-as-code.yaml
           sed -i 's/DOCKER_USERNAME/${{ secrets.DOCKER_USERNAME }}/g' jenkins/jenkins-config-as-code.yaml
           sed -i 's/DOCKER_PASSWORD/${{ secrets.DOCKER_PASSWORD }}/g' jenkins/jenkins-config-as-code.yaml
+
+          sed -i 's/G_USERNAME/${{ secrets.G_USERNAME }}/g' jenkins/build-and-push-static-site.groovy
+          sed -i 's/DOCKER_USERNAME/${{ secrets.DOCKER_USERNAME }}/g' jenkins/build-and-push-static-site.groovy
+          sed -i 's/DOCKER_PASSWORD/${{ secrets.DOCKER_PASSWORD }}/g' jenkins/build-and-push-static-site.groovy
         shell: bash
 
       - name: Setup `packer`
