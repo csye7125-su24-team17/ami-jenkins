@@ -23,6 +23,7 @@ ldap:latest
 mailer:latest
 matrix-auth:latest
 matrix-project:latest
+nodejs:latest
 golang:latest
 okhttp-api:latest
 pam-auth:latest
