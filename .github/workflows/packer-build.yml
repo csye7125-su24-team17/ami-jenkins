@@ -3,12 +3,12 @@ name: Build Jenkins AMI using Packer
 on:
   pull_request:
     branches:
-      - main
-    types: [closed]
+      - A03
+    # types: [closed]
 
 jobs:
   packer_build_image:
-    if: ${{ github.event.pull_request.merged }}
+    # if: ${{ github.event.pull_request.merged }}
     runs-on: ubuntu-latest
     name: Build AWS Custom AMI for Jenkins with Caddy
     steps:
