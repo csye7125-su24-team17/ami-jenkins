@@ -35,7 +35,7 @@ pipeline {
     }
     post {
         success {
-            echo 'All commit messages follow the Conventional Commits format.'
+            echo 'All commit messages follow Conventional Commits format.'
         }
         failure {
             echo 'Commit message validation failed. Please follow the Conventional Commits format.'
