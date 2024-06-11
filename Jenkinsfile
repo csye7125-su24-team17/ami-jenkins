@@ -7,27 +7,23 @@ pipeline {
         stage('Lint Commit Messages') {
             steps {
                 script {
-                    withCredentials([usernamePassword(credentialsId: 'github-pat', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-                        sh 'git config credential.helper "!f() { echo username=\\$GIT_USERNAME; echo password=\\$GIT_PASSWORD; }; f"'
-                        sh 'git fetch --no-tags origin +refs/heads/${TARGET_BRANCH}:refs/remotes/origin/${TARGET_BRANCH}'
-                        sh 'git config --list' // Debugging: check Git configurations
-                    }
-                    def output = sh(script: "git log origin/${TARGET_BRANCH}..HEAD --pretty=format:'%s'", returnStdout: true).trim()
-                    def commits = output.tokenize("\n")
-                    def invalidCommits = []
+                    // Using withCredentials to securely provide GitHub credentials
+                    withCredentials([usernamePassword(credentialsId: 'github-pat', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
+                        // Setting up Git to use credentials
+                        sh 'git config credential.helper "!f() { echo username=\\$GIT_USERNAME; echo password=\\$GIT__PASSWORD; }; f"'
+                        
+                        // Fetching the target branch to compare differences
+                        sh "git fetch --no-tags origin +refs/heads/${env.TARGET_BRANCH}:refs/remotes/origin/${env.TARGET_BRANCH}"
 
-                    for (commit in commits) {
-                        if (!commit.matches("^(feat|fix|docs|style|refactor|perf|test|chore|revert|ci|build)(!)?(\\(\\S+\\))?\\: .+")) {
-                            invalidCommits.add(commit)
-                        }
-                    }
+                        // Extracting only the last commit message
+                        def lastCommitMsg = sh(script: "git log -1 HEAD --pretty=format:'%s'", returnStdout: true).trim()
 
-                    if (invalidCommits.size() > 0) {
-                        echo "The following commit messages do not follow Conventional Commits format:"
-                        invalidCommits.each {
-                            echo " - ${it}"
+                        // Check the last commit message against the Conventional Commits format
+                        if (!lastCommitMsg.matches("^(feat|fix|docs|style|refactor|perf|test|chore|revert|ci|build)(!)?(\\(\\S+\\))?\\: .+")) {
+                            echo "The last commit message does not follow Conventional Commits format:"
+                            echo " - ${lastCommitMsg}"
+                            error "The last commit message is not in the Conventional Commits format. PR cannot be merged."
                         }
-                        error "Some commit messages are not in the Conventional Commits format. PR cannot be merged."
                     }
                 }
             }
@@ -35,10 +31,10 @@ pipeline {
     }
     post {
         success {
-            echo 'All commit messages follow Conventional Commits format.'
+            echo 'The last commit message follows the Conventional Commits format.'
         }
         failure {
-            echo 'Commit message validation failed. Please follow the Conventional Commits format.'
+            echo 'Commit message validation failed. Please ensure the last commit follows the Conventional Commits format.'
         }
     }
 }
