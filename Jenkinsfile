@@ -17,7 +17,7 @@ pipeline {
                     def invalidCommits = []
 
                     for (commit in commits) {
-                        if (!commit.matches("^(feat|fix|docs|style|refactor|perf|test|chore|revert)(\\(\\S+\\))?\\: .+")) {
+                        if (!commit.matches("^(feat|fix|docs|style|refactor|perf|test|chore|revert|ci|build)(!)?(\\(\\S+\\))?\\: .+")) {
                             invalidCommits.add(commit)
                         }
                     }
