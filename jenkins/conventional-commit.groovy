@@ -5,6 +5,9 @@ multibranchPipelineJob('conventional-commit') {
             scanCredentialsId('github-pat')
             repoOwner('csye7125-su24-team17')
             repository('ami-jenkins')
+            buildForkPRMerge(true)
+            buildOriginBranch(false)
+            buildOriginBranchWithPR(false)
     }
     }
     orphanedItemStrategy {
