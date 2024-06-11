@@ -9,8 +9,8 @@ pipeline {
                 script {
                     // Using withCredentials to securely provide GitHub credentials
                     withCredentials([usernamePassword(credentialsId: 'github-pat', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
-                        // Setting up Git to use credentials
-                        sh 'git config credential.helper "!f() { echo username=\\$GIT_USERNAME; echo password=\\$GIT__PASSWORD; }; f"'
+                        // Correctly setting up Git to use credentials
+                        sh 'git config credential.helper "!f() { echo username=\\$GIT_USERNAME; echo password=\\$GIT_PASSWORD; }; f"'
                         
                         // Fetching the target branch to compare differences
                         sh "git fetch --no-tags origin +refs/heads/${env.TARGET_BRANCH}:refs/remotes/origin/${env.TARGET_BRANCH}"
