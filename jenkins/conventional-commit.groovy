@@ -1,11 +1,11 @@
 multibranchPipelineJob('conventional-commit') {
     branchSources {
-        git {
-            id('conventional-commit-ami-jenkins') // IMPORTANT: use a constant and unique identifier
-            remote('https://github.com/csye7125-su24-team17/ami-jenkins.git')
-            credentialsId('github-pat')
-            includes('**')
-        }
+        github {
+            id('csye7125-ami-jenkins')
+            scanCredentialsId('github-pat')
+            repoOwner('csye7125-su24-team17')
+            repository('ami-jenkins')
+    }
     }
     orphanedItemStrategy {
         discardOldItems {
