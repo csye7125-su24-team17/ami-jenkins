@@ -1,7 +1,7 @@
 name: Build Jenkins AMI using Packer
 
 on:
-  pull_request:
+  push:
     branches:
       - A03
     # types: [closed]
