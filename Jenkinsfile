@@ -7,7 +7,11 @@ pipeline {
         stage('Lint Commit Messages') {
             steps {
                 script {
-                    sh 'git fetch --no-tags origin +refs/heads/${TARGET_BRANCH}:refs/remotes/origin/${TARGET_BRANCH}'
+                    withCredentials([usernamePassword(credentialsId: 'github-pat', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+                        sh 'git config credential.helper "!f() { echo username=\\$GIT_USERNAME; echo password=\\$GIT_PASSWORD; }; f"'
+                        sh 'git fetch --no-tags origin +refs/heads/${TARGET_BRANCH}:refs/remotes/origin/${TARGET_BRANCH}'
+                        sh 'git config --list' // Debugging: check Git configurations
+                    }
                     def output = sh(script: "git log origin/${TARGET_BRANCH}..HEAD --pretty=format:'%s'", returnStdout: true).trim()
                     def commits = output.tokenize("\n")
                     def invalidCommits = []
