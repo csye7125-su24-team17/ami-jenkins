@@ -14,7 +14,3 @@
 - `packer fmt`: Formats template
 - `packer validate`: Validates the template
 - `packer build <filename>.pkr.hcl`: Builds the custom AMI
-
----testing
---testing
---testing
