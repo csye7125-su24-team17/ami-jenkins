@@ -39,6 +39,17 @@ sudo systemctl --full status jenkins
 # Check Jenkins version
 echo "Jenkins $(jenkins --version)"
 
+# Install helm and npm
+curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
+sudo apt-get install apt-transport-https --yes
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
+sudo apt-get update
+sudo apt-get install helm
+sudo apt install nodejs npm -y
+sudo mkdir -p ~/.docker/cli-plugins/
+curl -sL https://github.com/docker/buildx/releases/download/v0.14.1/buildx-v0.14.1.linux-amd64 -o ~/.docker/cli-plugins/docker-buildx
+chmod +x ~/.docker/cli-plugins/docker-buildx
+export PATH=$PATH:~/.docker/cli-plugins
 #########################################################################
 ## Caddy(stable) installation docs: https://caddyserver.com/docs/install#debian-ubuntu-raspbian
 
@@ -117,10 +128,16 @@ sudo chown jenkins:jenkins /var/lib/jenkins/jenkins.yaml
 # Copy Jenkins DSL Job scripts to Jenkins home
 sudo cp /home/ubuntu/build-and-push-static-site.groovy /var/lib/jenkins/
 sudo cp /home/ubuntu/conventional-commit.groovy /var/lib/jenkins/
+sudo cp /home/ubuntu/webapp.groovy /var/lib/jenkins/
+sudo cp /home/ubuntu/webapp-helm.groovy /var/lib/jenkins/
+sudo cp /home/ubuntu/webapp-semantic-release.groovy /var/lib/jenkins/
 
 # Make jenkins user and group owner of Jenkins DSL job
 sudo chown jenkins:jenkins /var/lib/jenkins/build-and-push-static-site.groovy
 sudo chown jenkins:jenkins /var/lib/jenkins/conventional-commit.groovy
+sudo chown jenkins:jenkins /var/lib/jenkins/webapp.groovy
+sudo chown jenkins:jenkins /var/lib/jenkins/webapp-helm.groovy
+sudo chown jenkins:jenkins /var/lib/jenkins/webapp-semantic-release.groovy
 
 # Update users and group permissions to `jenkins` for all installed plugins:
 cd /var/lib/jenkins/plugins/ || exit

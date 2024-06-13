@@ -1,4 +1,4 @@
-pipelineJob('build-and-push-static-site') {
+pipelineJob('build-and-push-webapp') {
     triggers {
         githubPush()
     }
@@ -11,7 +11,7 @@ pipelineJob('build-and-push-static-site') {
             stage('Checkout Code') {
               steps {
                 // HTTPs URL for GitHub repo
-                git(url: 'https://github.com/csye7125-su24-team17/static-site.git', 
+                git(url: 'https://github.com/csye7125-su24-team17/webapp-cve-processor.git', 
     branch: 'main',
     credentialsId: 'github-pat')
               }
@@ -20,7 +20,8 @@ pipelineJob('build-and-push-static-site') {
               steps {
                 sh 'echo DOCKER_PASSWORD  | docker login -u DOCKER_USERNAME --password-stdin'
                 sh 'docker buildx create --use'
-                sh 'docker buildx build --platform linux/amd64,linux/arm64 -t DOCKER_USERNAME/static-site:latest --push .'
+                sh 'docker buildx build --platform linux/amd64,linux/arm64 -t DOCKER_USERNAME/cve-processor:latest -f Dockerfile.cve-processor --push .'
+                sh 'docker buildx build --platform linux/amd64,linux/arm64 -t DOCKER_USERNAME/db-migration:latest -f Dockerfile.db-migration --push .'
 				sh 'docker logout'
               }
             }
