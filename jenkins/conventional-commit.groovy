@@ -33,7 +33,7 @@ multibranchPipelineJob('conventional-commit') {
             repoOwner('csye7125-su24-team17')
             repository('helm-webapp-cve-processor')
             buildForkPRMerge(true)
-            buildOriginBranch(false)
+            buildOriginBranch(true)
             buildOriginBranchWithPR(false)
     }
         github {

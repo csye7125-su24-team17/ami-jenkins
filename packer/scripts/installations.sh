@@ -39,17 +39,68 @@ sudo systemctl --full status jenkins
 # Check Jenkins version
 echo "Jenkins $(jenkins --version)"
 
-# Install helm and npm
+##########################################################################
+## Installing Helm
+
 curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
 sudo apt-get install apt-transport-https --yes
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
 sudo apt-get update
-sudo apt-get install helm
-sudo apt install nodejs npm -y
+sudo apt-get install helm -y
+
+##########################################################################
+## Installing Node.js, npm, and global npm packages
+
+# Add NodeSource GPG key and setup repository
+echo "Adding NodeSource GPG key and setting up repository..."
+curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+NODE_MAJOR=20
+echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
+
+# Update the package list to include Node.js packages
+echo "Updating package list for Node.js..."
+sudo apt-get update -y
+
+# Install Node.js
+echo "Installing Node.js..."
+sudo apt-get install -y nodejs
+
+# Verify Node.js and npm installation
+echo "Verifying Node.js and npm installation..."
+node --version
+npm --version
+
+# Install necessary global npm packages
+echo "Installing global npm packages..."
+sudo npm install -g semantic-release@latest
+sudo npm install -g @semantic-release/git@latest
+sudo npm install -g @semantic-release/exec@latest
+sudo npm install -g conventional-changelog-conventionalcommits
+sudo npm install -g npm-cli-login
+
+##########################################################################
+## Installing GitHub CLI
+
+echo "Installing GitHub CLI..."
+sudo apt-get install -y gh
+
+# Confirm all installations
+echo "Installation complete. Versions:"
+echo "Node.js: $(node --version)"
+echo "npm: $(npm --version)"
+echo "semantic-release: $(semantic-release --version)"
+echo "GitHub CLI: $(gh --version)"
+
+##########################################################################
+## Installing Docker Buildx
+
+echo "Installing Docker Buildx..."
 sudo mkdir -p ~/.docker/cli-plugins/
 curl -sL https://github.com/docker/buildx/releases/download/v0.14.1/buildx-v0.14.1.linux-amd64 -o ~/.docker/cli-plugins/docker-buildx
 chmod +x ~/.docker/cli-plugins/docker-buildx
 export PATH=$PATH:~/.docker/cli-plugins
+
+
 #########################################################################
 ## Caddy(stable) installation docs: https://caddyserver.com/docs/install#debian-ubuntu-raspbian
 
