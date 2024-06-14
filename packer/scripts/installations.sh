@@ -180,15 +180,11 @@ sudo chown jenkins:jenkins /var/lib/jenkins/jenkins.yaml
 sudo cp /home/ubuntu/build-and-push-static-site.groovy /var/lib/jenkins/
 sudo cp /home/ubuntu/conventional-commit.groovy /var/lib/jenkins/
 sudo cp /home/ubuntu/webapp.groovy /var/lib/jenkins/
-sudo cp /home/ubuntu/webapp-helm.groovy /var/lib/jenkins/
-sudo cp /home/ubuntu/webapp-semantic-release.groovy /var/lib/jenkins/
 
 # Make jenkins user and group owner of Jenkins DSL job
 sudo chown jenkins:jenkins /var/lib/jenkins/build-and-push-static-site.groovy
 sudo chown jenkins:jenkins /var/lib/jenkins/conventional-commit.groovy
 sudo chown jenkins:jenkins /var/lib/jenkins/webapp.groovy
-sudo chown jenkins:jenkins /var/lib/jenkins/webapp-helm.groovy
-sudo chown jenkins:jenkins /var/lib/jenkins/webapp-semantic-release.groovy
 
 # Update users and group permissions to `jenkins` for all installed plugins:
 cd /var/lib/jenkins/plugins/ || exit
