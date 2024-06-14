@@ -13,7 +13,7 @@ pipeline {
                         sh 'git config credential.helper "!f() { echo username=\\$GIT_USERNAME; echo password=\\$GIT_PASSWORD; }; f"'
                         // Fetching the target branch to compare differences
                         sh "git fetch --no-tags origin +refs/heads/${env.TARGET_BRANCH}:refs/remotes/origin/${env.TARGET_BRANCH}"
- 
+
                         // Checkout to the latest commit of the PR branch
                         sh "git checkout -B ${env.BRANCH_NAME} origin/${env.BRANCH_NAME}"
                         // Extracting only the last commit message from the PR branch
