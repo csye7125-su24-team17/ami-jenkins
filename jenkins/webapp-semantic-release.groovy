@@ -28,7 +28,6 @@ pipelineJob('semantic-release') {
               }
             }
           }
-        }
       """)
             sandbox()
         }

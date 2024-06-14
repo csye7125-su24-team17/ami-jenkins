@@ -20,7 +20,7 @@ pipelineJob('build-and-push-webapp') {
               steps {
                 sh 'echo DOCKER_PASSWORD  | docker login -u DOCKER_USERNAME --password-stdin'
                 sh 'docker buildx create --use'
-                sh 'docker buildx build --platform linux/amd64,linux/arm64 -t DOCKER_USERNAME/cve-processor:latest -f Dockerfile.cve-processor --push .'
+                sh 'docker buildx build --platform linux/amd64,linux/arm64 -t DOCKER_USERNAME/   -f Dockerfile.cve-processor --push .'
                 sh 'docker buildx build --platform linux/amd64,linux/arm64 -t DOCKER_USERNAME/db-migration:latest -f Dockerfile.db-migration --push .'
 				sh 'docker logout'
               }
