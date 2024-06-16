@@ -122,10 +122,10 @@ sudo rm /etc/caddy/Caddyfile
 
 # Create new Caddyfile for Jenkins
 sudo tee /etc/caddy/Caddyfile <<EOF
-# {
-#     acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
-# }
-jenkinsdemo.hemanthnvd.com {
+{
+    acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
+}
+jenkins.hemanthnvd.com {
   reverse_proxy http://127.0.0.1:8080
 }
 EOF
@@ -179,12 +179,12 @@ sudo chown jenkins:jenkins /var/lib/jenkins/jenkins.yaml
 # Copy Jenkins DSL Job scripts to Jenkins home
 sudo cp /home/ubuntu/build-and-push-static-site.groovy /var/lib/jenkins/
 sudo cp /home/ubuntu/conventional-commit.groovy /var/lib/jenkins/
-sudo cp /home/ubuntu/webapp.groovy /var/lib/jenkins/
+# sudo cp /home/ubuntu/webapp.groovy /var/lib/jenkins/
 
 # Make jenkins user and group owner of Jenkins DSL job
 sudo chown jenkins:jenkins /var/lib/jenkins/build-and-push-static-site.groovy
 sudo chown jenkins:jenkins /var/lib/jenkins/conventional-commit.groovy
-sudo chown jenkins:jenkins /var/lib/jenkins/webapp.groovy
+# sudo chown jenkins:jenkins /var/lib/jenkins/webapp.groovy
 
 # Update users and group permissions to `jenkins` for all installed plugins:
 cd /var/lib/jenkins/plugins/ || exit

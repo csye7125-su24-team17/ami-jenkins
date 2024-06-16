@@ -43,12 +43,12 @@ credentials:
               id: "docker-cred"
               username: "DOCKER_USERNAME" # Placeholder
               password: "DOCKER_PASSWORD" # Placeholder
-              description: "Docker Registry Token"
+              description: "Docker Credentials"
 
 jobs:
   - file: /var/lib/jenkins/build-and-push-static-site.groovy
   - file: /var/lib/jenkins/conventional-commit.groovy
-  - file: /var/lib/jenkins/webapp.groovy
+  # - file: /var/lib/jenkins/webapp.groovy
 
     #unclassified:
     #permissiveScriptSecurity:

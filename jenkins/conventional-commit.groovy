@@ -24,7 +24,7 @@ multibranchPipelineJob('conventional-commit') {
             repoOwner('csye7125-su24-team17')
             repository('webapp-cve-processor')
             buildForkPRMerge(true)
-            buildOriginBranch(false)
+            buildOriginBranch(true)
             buildOriginBranchWithPR(false)
     }
         github {

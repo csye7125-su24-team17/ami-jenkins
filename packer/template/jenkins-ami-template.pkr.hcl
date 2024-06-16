@@ -133,10 +133,10 @@ build {
     destination = "/home/ubuntu/conventional-commit.groovy"
   }
 
-  provisioner "file" {
-    source      = "./jenkins/webapp.groovy"
-    destination = "/home/ubuntu/webapp.groovy"
-  }
+  // provisioner "file" {
+  //   source      = "./jenkins/webapp.groovy"
+  //   destination = "/home/ubuntu/webapp.groovy"
+  // }
 
   provisioner "shell" {
     name = "Installs Jenkins and all its dependencies, starts the service"
