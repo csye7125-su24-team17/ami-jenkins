@@ -45,6 +45,15 @@ multibranchPipelineJob('conventional-commit') {
             buildOriginBranch(false)
             buildOriginBranchWithPR(false)
     }
+        github {
+            id('csye7125-infra-aws')
+            scanCredentialsId('github-pat')
+            repoOwner('csye7125-su24-team17')
+            repository('infra-aws')
+            buildForkPRMerge(true)
+            buildOriginBranch(false)
+            buildOriginBranchWithPR(false)
+    }
     }
     orphanedItemStrategy {
         discardOldItems {
