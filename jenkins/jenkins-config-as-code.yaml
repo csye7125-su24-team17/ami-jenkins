@@ -48,7 +48,7 @@ credentials:
 jobs:
   - file: /var/lib/jenkins/build-and-push-static-site.groovy
   - file: /var/lib/jenkins/conventional-commit.groovy
-  # - file: /var/lib/jenkins/webapp.groovy
+  - file: /var/lib/jenkins/helm-semantic-release.groovy
 
     #unclassified:
     #permissiveScriptSecurity:
