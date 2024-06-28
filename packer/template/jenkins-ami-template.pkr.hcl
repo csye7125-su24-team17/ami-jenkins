@@ -134,8 +134,23 @@ build {
   }
 
   provisioner "file" {
-    source      = "./jenkins/helm-semantic-release.groovy"
-    destination = "/home/ubuntu/helm-semantic-release.groovy"
+    source      = "./jenkins/helm-webapp-cve-consumer.groovy"
+    destination = "/home/ubuntu/helm-webapp-cve-consumer.groovy"
+  }
+
+  provisioner "file" {
+    source      = "./jenkins/helm-webapp-cve-processor.groovy"
+    destination = "/home/ubuntu/helm-webapp-cve-processor.groovy"
+  }
+
+  provisioner "file" {
+    source      = "./jenkins/webapp-cve-consumer.groovy"
+    destination = "/home/ubuntu/webapp-cve-consumer.groovy"
+  }
+
+  provisioner "file" {
+    source      = "./jenkins/webapp-cve-processor.groovy"
+    destination = "/home/ubuntu/webapp-cve-processor.groovy"
   }
 
   provisioner "shell" {
