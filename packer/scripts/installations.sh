@@ -195,13 +195,19 @@ sudo chown jenkins:jenkins /var/lib/jenkins/jenkins.yaml
 # Copy Jenkins DSL Job scripts to Jenkins home
 sudo cp /home/ubuntu/build-and-push-static-site.groovy /var/lib/jenkins/
 sudo cp /home/ubuntu/conventional-commit.groovy /var/lib/jenkins/
-sudo cp /home/ubuntu/helm-semantic-release.groovy /var/lib/jenkins/
+sudo cp /home/ubuntu/helm-webapp-cve-consumer.groovy /var/lib/jenkins/
+sudo cp /home/ubuntu/helm-webapp-cve-processor.groovy /var/lib/jenkins/
+sudo cp /home/ubuntu/webapp-cve-consumer.groovy /var/lib/jenkins/
+sudo cp /home/ubuntu/webapp-cve-processor.groovy /var/lib/jenkins/
 # sudo cp /home/ubuntu/webapp.groovy /var/lib/jenkins/
 
 # Make jenkins user and group owner of Jenkins DSL job
 sudo chown jenkins:jenkins /var/lib/jenkins/build-and-push-static-site.groovy
 sudo chown jenkins:jenkins /var/lib/jenkins/conventional-commit.groovy
-sudo chown jenkins:jenkins /var/lib/jenkins/helm-semantic-release.groovy
+sudo chown jenkins:jenkins /var/lib/jenkins/helm-webapp-cve-consumer.groovy
+sudo chown jenkins:jenkins /var/lib/jenkins/helm-webapp-cve-processor.groovy
+sudo chown jenkins:jenkins /var/lib/jenkins/webapp-cve-consumer.groovy
+sudo chown jenkins:jenkins /var/lib/jenkins/webapp-cve-processor.groovy
 # sudo chown jenkins:jenkins /var/lib/jenkins/webapp.groovy
 
 # Update users and group permissions to `jenkins` for all installed plugins:
