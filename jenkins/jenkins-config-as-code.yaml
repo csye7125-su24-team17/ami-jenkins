@@ -48,8 +48,7 @@ credentials:
 jobs:
   - file: /var/lib/jenkins/build-and-push-static-site.groovy
   - file: /var/lib/jenkins/conventional-commit.groovy
-  - file: /var/lib/jenkins/helm-semantic-release.groovy
-
-    #unclassified:
-    #permissiveScriptSecurity:
-    #enabled: true  # This effectively disables script security checks
+  - file: /var/lib/jenkins/helm-webapp-cve-consumer.groovy
+  - file: /var/lib/jenkins/helm-webapp-cve-processor.groovy
+  - file: /var/lib/jenkins/webapp-cve-consumer.groovy
+  - file: /var/lib/jenkins/webapp-cve-processor.groovy
