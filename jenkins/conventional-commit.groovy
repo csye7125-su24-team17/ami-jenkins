@@ -19,15 +19,6 @@ multibranchPipelineJob('conventional-commit') {
             buildOriginBranchWithPR(false)
     }
         github {
-            id('csye7125-webapp-cve-processor')
-            scanCredentialsId('github-pat')
-            repoOwner('csye7125-su24-team17')
-            repository('webapp-cve-processor')
-            buildForkPRMerge(true)
-            buildOriginBranch(true)
-            buildOriginBranchWithPR(false)
-    }
-        github {
             id('csye7125-static-site')
             scanCredentialsId('github-pat')
             repoOwner('csye7125-su24-team17')
