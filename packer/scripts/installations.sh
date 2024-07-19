@@ -197,6 +197,7 @@ sudo cp /home/ubuntu/build-and-push-static-site.groovy /var/lib/jenkins/
 sudo cp /home/ubuntu/conventional-commit.groovy /var/lib/jenkins/
 sudo cp /home/ubuntu/helm-webapp-cve-consumer.groovy /var/lib/jenkins/
 sudo cp /home/ubuntu/helm-webapp-cve-processor.groovy /var/lib/jenkins/
+sudo cp /home/ubuntu/helm-eks-autoscaler.groovy /var/lib/jenkins/
 sudo cp /home/ubuntu/webapp-cve-consumer.groovy /var/lib/jenkins/
 sudo cp /home/ubuntu/webapp-cve-processor.groovy /var/lib/jenkins/
 # sudo cp /home/ubuntu/webapp.groovy /var/lib/jenkins/
@@ -206,6 +207,7 @@ sudo chown jenkins:jenkins /var/lib/jenkins/build-and-push-static-site.groovy
 sudo chown jenkins:jenkins /var/lib/jenkins/conventional-commit.groovy
 sudo chown jenkins:jenkins /var/lib/jenkins/helm-webapp-cve-consumer.groovy
 sudo chown jenkins:jenkins /var/lib/jenkins/helm-webapp-cve-processor.groovy
+sudo chown jenkins:jenkins /var/lib/jenkins/helm-eks-autoscaler.groovy
 sudo chown jenkins:jenkins /var/lib/jenkins/webapp-cve-consumer.groovy
 sudo chown jenkins:jenkins /var/lib/jenkins/webapp-cve-processor.groovy
 # sudo chown jenkins:jenkins /var/lib/jenkins/webapp.groovy
