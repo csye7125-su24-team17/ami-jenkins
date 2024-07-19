@@ -50,5 +50,6 @@ jobs:
   - file: /var/lib/jenkins/conventional-commit.groovy
   - file: /var/lib/jenkins/helm-webapp-cve-consumer.groovy
   - file: /var/lib/jenkins/helm-webapp-cve-processor.groovy
+  - file: /var/lib/jenkins/helm-eks-autoscaler.groovy
   - file: /var/lib/jenkins/webapp-cve-consumer.groovy
   - file: /var/lib/jenkins/webapp-cve-processor.groovy

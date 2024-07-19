@@ -144,6 +144,11 @@ build {
   }
 
   provisioner "file" {
+    source      = "./jenkins/helm-eks-autoscaler.groovy"
+    destination = "/home/ubuntu/helm-eks-autoscaler.groovy"
+  }
+
+  provisioner "file" {
     source      = "./jenkins/webapp-cve-consumer.groovy"
     destination = "/home/ubuntu/webapp-cve-consumer.groovy"
   }
